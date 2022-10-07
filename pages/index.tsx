@@ -28,6 +28,7 @@ const LineChartWithBarChart = dynamic(
   { ssr: false },
 );
 import RadarChart from '../components/chart/RadarChart';
+import Scatter from '../components/chart/Scatter';
 
 const nodes = [
   { x: 50, y: 20 },
@@ -40,11 +41,6 @@ const links = [
   { source: nodes[1], target: nodes[2] },
   { source: nodes[2], target: nodes[0], dashed: true },
 ];
-
-// const ChartContainer = tw.div`
-//   border border-zinc-100 shadow rounded
-//   h-[400px]
-// `;
 
 const Home: NextPage = () => {
   return (
@@ -372,6 +368,26 @@ const Home: NextPage = () => {
               },
             ]}
             colorList={['#333', '#888']}
+          />
+        </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>scatter 차트</span>
+          <Scatter
+            id={'scatter'}
+            data={[
+              { x: '1', y: 1, y2: 12 },
+              { x: '2', y: 12, y2: 13 },
+              { x: '3', y: 11, y2: 1 },
+              { x: '4', y: 14, y2: 2 },
+              { x: '5', y: 11, y2: 4 },
+              { x: '6', y: 4, y2: 6 },
+              { x: '7', y: 6, y2: 12 },
+              { x: '8', y: 9, y2: 2 },
+              { x: '9', y: 10, y2: 7 },
+              { x: '10', y: 12, y2: 12 },
+            ]}
+            colorList={['#333', '#888']}
+            xType={'band'}
           />
         </div>
       </div>
