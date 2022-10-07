@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+const BoxPlot = dynamic(() => import('../components/chart/BoxPlot'));
+const NetworkChart = dynamic(() => import('../components/chart/NetworkChart'));
 const BarChart = dynamic(() => import('../components/chart/BarChart'), {
   ssr: false,
 });
@@ -25,6 +27,19 @@ const LineChartWithBarChart = dynamic(
   () => import('../components/chart/LineChartWithBarChart'),
   { ssr: false },
 );
+import RadarChart from '../components/chart/RadarChart';
+
+const nodes = [
+  { x: 50, y: 20 },
+  { x: 200, y: 250 },
+  { x: 300, y: 40, color: '#26deb0' },
+];
+
+const links = [
+  { source: nodes[0], target: nodes[1] },
+  { source: nodes[1], target: nodes[2] },
+  { source: nodes[2], target: nodes[0], dashed: true },
+];
 
 // const ChartContainer = tw.div`
 //   border border-zinc-100 shadow rounded
@@ -258,6 +273,105 @@ const Home: NextPage = () => {
             ]}
             id={'tree'}
             colorSet={['#333333', '#e3e3e3'].reverse()}
+          />
+        </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>네트워크</span>
+          <NetworkChart
+            id={'network'}
+            data={{
+              nodes: [
+                { id: 'x', group: '', value: 10 },
+                { id: 'y', group: '', value: 16 },
+                { id: 'z', group: '', value: 30 },
+                { id: 'a', group: '', value: 20 },
+              ],
+              links: [
+                { source: 'x', target: 'y', value: 5 },
+                { source: 'y', target: 'z', value: 15 },
+                { source: 'z', target: 'x', value: 50 },
+                { source: 'a', target: 'y', value: 5 },
+                { source: 'a', target: 'x', value: 15 },
+                { source: 'a', target: 'z', value: 35 },
+              ],
+            }}
+          />
+        </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>박스플롯</span>
+          <BoxPlot
+            id={'box'}
+            data={[
+              {
+                x: 'x',
+                qt1: 10,
+                qt3: 30,
+                media: 12,
+                avg: 12,
+                min: 5,
+                max: 40,
+                count: 10,
+              },
+              {
+                x: 'y',
+                qt1: 20,
+                qt3: 30,
+                media: 12,
+                avg: 17,
+                min: 15,
+                max: 70,
+                count: 10,
+              },
+              {
+                x: 'z',
+                qt1: 13,
+                qt3: 30,
+                media: 12,
+                avg: 16,
+                min: 12,
+                max: 50,
+                count: 10,
+              },
+              {
+                x: 'a',
+                qt1: 10,
+                qt3: 30,
+                media: 12,
+                avg: 12,
+                min: 5,
+                max: 40,
+                count: 10,
+              },
+            ]}
+          />
+        </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>레이다 차트</span>
+          <RadarChart
+            id={'radar'}
+            data={[
+              {
+                key: 'x',
+                data: [
+                  { x: 'a', y: 3 },
+                  { x: 'b', y: 6 },
+                  { x: 'c', y: 8 },
+                  { x: 'd', y: 4 },
+                  { x: 'e', y: 5 },
+                ],
+              },
+              {
+                key: 'y',
+                data: [
+                  { x: 'a', y: 12 },
+                  { x: 'b', y: 14 },
+                  { x: 'c', y: 11 },
+                  { x: 'd', y: 10 },
+                  { x: 'e', y: 12 },
+                ],
+              },
+            ]}
+            colorList={['#333', '#888']}
           />
         </div>
       </div>

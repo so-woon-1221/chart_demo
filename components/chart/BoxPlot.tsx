@@ -21,7 +21,7 @@ interface Props {
   id: string;
   width: number;
   height: number;
-  setSelectedKey: Dispatch<SetStateAction<string | undefined>>;
+  // setSelectedKey: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const BoxPlotChart: React.FC<Props> = ({
@@ -29,7 +29,7 @@ const BoxPlotChart: React.FC<Props> = ({
   data,
   width,
   height,
-  setSelectedKey: setBrand,
+  // setSelectedKey: setBrand,
 }) => {
   const [tooltipData, setTooltipData] = useState<{
     tooltipTop: number;
@@ -96,11 +96,11 @@ const BoxPlotChart: React.FC<Props> = ({
                         name: d.x,
                       },
                     });
-                    setBrand(d.x);
+                    // setBrand(d.x);
                   },
                   onMouseLeave: () => {
                     setTooltipData(undefined);
-                    setBrand(undefined);
+                    // setBrand(undefined);
                   },
                 }}
                 maxProps={{
@@ -119,11 +119,11 @@ const BoxPlotChart: React.FC<Props> = ({
                         name: d.x,
                       },
                     });
-                    setBrand(d.x);
+                    // setBrand(d.x);
                   },
                   onMouseLeave: () => {
                     setTooltipData(undefined);
-                    setBrand(undefined);
+                    // setBrand(undefined);
                   },
                 }}
                 boxProps={{
@@ -149,11 +149,11 @@ const BoxPlotChart: React.FC<Props> = ({
                         name: d.x,
                       },
                     });
-                    setBrand(d.x);
+                    // setBrand(d.x);
                   },
                   onMouseLeave: () => {
                     setTooltipData(undefined);
-                    setBrand(undefined);
+                    // setBrand(undefined);
                   },
                 }}
                 medianProps={{
@@ -175,11 +175,11 @@ const BoxPlotChart: React.FC<Props> = ({
                         name: d.x,
                       },
                     });
-                    setBrand(d.x);
+                    // setBrand(d.x);
                   },
                   onMouseLeave: () => {
                     setTooltipData(undefined);
-                    setBrand(undefined);
+                    // setBrand(undefined);
                   },
                 }}
               />

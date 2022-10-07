@@ -5,7 +5,7 @@ import React, {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { select, arc, pie, color } from 'd3';
+import { select, arc, pie } from 'd3';
 import { scaleOrdinal } from '@visx/scale';
 import withParentSize from 'hooks/withParentSize';
 import styled from 'styled-components';
