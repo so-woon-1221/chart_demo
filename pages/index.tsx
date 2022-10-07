@@ -1,12 +1,26 @@
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import BarChart from '../components/chart/BarChart';
-import LineChart from '../components/chart/LineChart';
-import HorizontalBarChart from '../components/chart/HorizontalBarChart';
-import { MdBubbleChart } from 'react-icons/md';
-import Bubble from '../components/chart/Bubble';
-import PieChart from '../components/chart/PieChart';
-import Treemap from '../components/chart/Treemap';
+const BarChart = dynamic(() => import('../components/chart/BarChart'), {
+  ssr: false,
+});
+const LineChart = dynamic(() => import('../components/chart/LineChart'), {
+  ssr: false,
+});
+const HorizontalBarChart = dynamic(
+  () => import('../components/chart/HorizontalBarChart'),
+  {
+    ssr: false,
+  },
+);
+const Bubble = dynamic(() => import('../components/chart/Bubble'), {
+  ssr: false,
+});
+const PieChart = dynamic(() => import('../components/chart/PieChart'), {
+  ssr: false,
+});
+const Treemap = dynamic(() => import('../components/chart/Treemap'), {
+  ssr: false,
+});
 const LineChartWithBarChart = dynamic(
   () => import('../components/chart/LineChartWithBarChart'),
   { ssr: false },
