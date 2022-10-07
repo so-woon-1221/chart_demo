@@ -1,34 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 현재 손쉽게 사용할 수 있는 차트들의 리스트를 보여줍니다.
 
-## Getting Started
+---
 
-First, run the development server:
+### 바 차트
+1. 기본 바차트
+   - 하나의 바를 보여줍니다.
+2. 그룹 바차트
+   - 두개 이상의 바를 쌓지않고 나열합니다.
+3. 스택 바차트
+   - 두개 이상의 바를 쌓아서 세로로 나열합니다.
+4. 가로 바차트
+   - 하나의 바를 가로로 늘어나는 형태로 보여줍니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### 라인차트
+1. 기본 라인차트
+   - 하나의 라인을 보여줍니다.
+2. 멀티 라인차트
+   - 두개 이상의 라인을 나열합니다.
+3. 스택 라인차트
+   - 두개 이상의 라인을 쌓아서 보여줍니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 라인차트 + 바차트
+- 라인차트와 바차트를 겹쳐서 보여줍니다. 왼쪽의 세로축은 라인차트의 축, 오른쪽의 세로축을 바 차트의 축입니다.
