@@ -29,6 +29,8 @@ const LineChartWithBarChart = dynamic(
 );
 import RadarChart from '../components/chart/RadarChart';
 import Scatter from '../components/chart/Scatter';
+import Head from 'next/head';
+import Mosaic from '../components/chart/Mosaic';
 
 const nodes = [
   { x: 50, y: 20 },
@@ -390,7 +392,36 @@ const Home: NextPage = () => {
             xType={'band'}
           />
         </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>모자이크 차트</span>
+          <Mosaic
+            id={'mosaic'}
+            data={[
+              { x: 'a', y: 'x', value: 12 },
+              { x: 'a', y: 'y', value: 12 },
+              { x: 'a', y: 'z', value: 14 },
+              { x: 'a', y: 't', value: 22 },
+              { x: 'b', y: 'x', value: 12 },
+              { x: 'b', y: 'y', value: 13 },
+              { x: 'b', y: 'z', value: 1 },
+              { x: 'b', y: 't', value: 2 },
+              { x: 'c', y: 'x', value: 12 },
+              { x: 'c', y: 'y', value: 13 },
+              { x: 'c', y: 'z', value: 1 },
+              { x: 'c', y: 't', value: 2 },
+              { x: 'd', y: 'x', value: 12 },
+              { x: 'd', y: 'y', value: 13 },
+              { x: 'd', y: 'z', value: 1 },
+              { x: 'd', y: 't', value: 2 },
+            ]}
+            colorList={['#333', '#888', '#ff0', '#00f']}
+            // xType={'band'}
+          />
+        </div>
       </div>
+      <Head>
+        <title>차트 리스트</title>
+      </Head>
     </div>
   );
 };
