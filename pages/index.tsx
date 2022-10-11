@@ -397,7 +397,7 @@ const Home: NextPage = () => {
           <Mosaic
             id={'mosaic'}
             data={[
-              { x: 'a', y: 'x', value: 12 },
+              { x: 'a', y: 'x', value: 30 },
               { x: 'a', y: 'y', value: 12 },
               { x: 'a', y: 'z', value: 14 },
               { x: 'a', y: 't', value: 22 },
@@ -414,7 +414,7 @@ const Home: NextPage = () => {
               { x: 'd', y: 'z', value: 1 },
               { x: 'd', y: 't', value: 2 },
             ]}
-            colorList={['#333', '#888', '#ff0', '#00f']}
+            colorList={['#000', '#333', '#aaa', '#eee']}
             // xType={'band'}
           />
         </div>
