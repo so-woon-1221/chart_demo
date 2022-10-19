@@ -9,7 +9,7 @@ import {
   AnimatedAnnotation,
   AnnotationLabel,
 } from '@visx/xychart';
-import { useCallback, useMemo, useState } from 'react';
+import { ComponentType, useCallback, useMemo, useState } from 'react';
 import { max, min, ScaleBand, scaleOrdinal, select } from 'd3';
 import moment from 'moment';
 import { GridRows } from '@visx/grid';
@@ -19,23 +19,22 @@ import { TooltipWithBounds } from '@visx/tooltip';
 interface Props {
   // x축은 x로 고정, index와 x가 아닌키는 모두 라인을 그릴 수 있도록 설정
   data: {
-    index: number;
     x: string;
     [key: string]: string | number | boolean;
   }[];
   id: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   xType: 'time' | 'band' | 'point' | 'ordinal';
-  barType: string;
+  barType?: string;
   colorSet: string[];
   showLegend?: boolean;
-  annotationType: 'sum' | 'rate';
+  annotationType?: 'sum' | 'rate';
   keyArray?: string[];
   showAnno?: boolean;
 }
 
-const BarChart: React.FC<Props> = ({
+const BarChart: ComponentType<Props> = ({
   data,
   id,
   width,
@@ -101,18 +100,18 @@ const BarChart: React.FC<Props> = ({
             moment(min(data.map((d) => d.x)), 'YYYYMMDD').toDate(),
             moment(max(data.map((d) => d.x)), 'YYYYMMDD').toDate(),
           ],
-          range: [80, width - 50],
+          range: [80, width! - 50],
         });
       default:
         return scaleBand({
           domain: data.map((d) => d.x),
-          range: [80, width - 50],
+          range: [80, width! - 50],
         });
     }
   }, [data, width, xType]);
 
   const yScale = useMemo(() => {
-    return scaleLinear({ range: [height - 50, 50], domain: [0, maxY] });
+    return scaleLinear({ range: [height! - 50, 50], domain: [0, maxY] });
   }, [height, maxY]);
 
   const drawLegend = useCallback(() => {
@@ -197,13 +196,13 @@ const BarChart: React.FC<Props> = ({
                   moment(max(data.map((d) => d.x)), 'YYYYMMDD').toDate(),
                 ]
               : data.map((d) => d.x),
-          range: [80, width - 50],
+          range: [80, width! - 50],
           padding: xType == 'time' ? 0 : 0.2,
         }}
         yScale={{
           type: 'linear',
           domain: [0, maxY],
-          range: [height - 50, 50],
+          range: [height! - 50, 50],
         }}
         onPointerMove={(e) => {
           if (barType == 'stack') {
@@ -238,7 +237,7 @@ const BarChart: React.FC<Props> = ({
           }
         }}
       >
-        <GridRows width={width - 130} left={80} scale={yScale} numTicks={3} />
+        <GridRows width={width! - 130} left={80} scale={yScale} numTicks={3} />
         <Axis
           orientation="bottom"
           tickFormat={(d) =>

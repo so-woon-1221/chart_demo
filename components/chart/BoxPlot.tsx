@@ -1,6 +1,12 @@
 import withParentSize from 'hooks/withParentSize';
 import { BoxPlot } from '@visx/stats';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import {
+  ComponentType,
+  Dispatch,
+  SetStateAction,
+  useMemo,
+  useState,
+} from 'react';
 import { scaleLinear, scaleBand } from '@visx/scale';
 import { max, min } from 'd3';
 import { Group } from '@visx/group';
@@ -19,12 +25,12 @@ interface Props {
     count: number;
   }[];
   id: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   // setSelectedKey: Dispatch<SetStateAction<string | undefined>>;
 }
 
-const BoxPlotChart: React.FC<Props> = ({
+const BoxPlotChart: ComponentType<Props> = ({
   id,
   data,
   width,
@@ -46,7 +52,7 @@ const BoxPlotChart: React.FC<Props> = ({
       //       : 0,
       //   ],
       domain: [min(data, (d) => +d.min)!, max(data, (d) => +d.max)!],
-      range: [height - 50, 50],
+      range: [height! - 50, 50],
       round: true,
     });
   }, [data, height]);
@@ -54,14 +60,14 @@ const BoxPlotChart: React.FC<Props> = ({
   const xScale = useMemo(() => {
     return scaleBand({
       domain: data.map((d) => d.x),
-      range: [50, width - 50],
+      range: [50, width! - 50],
     });
   }, [data, width]);
 
   return (
     <div className="relative flex flex-col w-full h-full">
       <svg width={width} height={height}>
-        <Axis scale={xScale} top={height - 50} />
+        <Axis scale={xScale} top={height! - 50} />
         <Axis scale={yScale} left={50} orientation="left" />
         {data.map((d, i) => {
           return (

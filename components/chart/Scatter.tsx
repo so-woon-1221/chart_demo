@@ -8,8 +8,8 @@ import { GridRows } from '@visx/grid';
 interface Props {
   data: { x: string | number | Date; [key: string]: number | string | Date }[];
   id: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   colorList: string[];
   xType: 'band' | 'linear' | 'time';
 }
@@ -37,30 +37,30 @@ const Scatter: ComponentType<Props> = ({
       case 'band':
         return scaleBand()
           .domain(data.map((d) => d.x as string))
-          .range([50, width - 50]);
+          .range([50, width! - 50]);
       case 'linear':
         return scaleLinear()
           .domain(data.map((d) => d.x as number))
-          .range([50, width - 50]);
+          .range([50, width! - 50]);
       case 'time':
         return scaleTime()
           .domain(data.map((d) => d.x as Date))
-          .range([50, width - 50]);
+          .range([50, width! - 50]);
     }
   }, [data, width, xType]);
 
   const yScale = useMemo(() => {
     return scaleLinear()
-      .range([height - 50, 50])
+      .range([height! - 50, 50])
       .domain([0, maxY as number]);
   }, [height, maxY]);
 
   return (
     <div className={'w-full h-full'}>
       <svg width={width} height={height}>
-        <Axis scale={xScale} top={height - 50} />
+        <Axis scale={xScale} top={height! - 50} />
         <Axis scale={yScale} left={50} orientation={'left'} />
-        <GridRows scale={yScale} width={width - 100} left={50} />
+        <GridRows scale={yScale} width={width! - 100} left={50} />
         <Group>
           {keyList.map((k, i) => {
             return (

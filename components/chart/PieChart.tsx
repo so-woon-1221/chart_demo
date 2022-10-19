@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  useMemo,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { select, arc, pie } from 'd3';
 import { scaleOrdinal } from '@visx/scale';
 import withParentSize from 'hooks/withParentSize';
@@ -22,22 +16,12 @@ const Tooltip = styled.div`
 interface Props {
   data: Array<{ key: string; data: number; percent: number }>;
   colorSet: Array<string>;
-  width: number;
-  height: number;
-  setSelectedKey?: Dispatch<SetStateAction<string>>;
+  width?: number;
+  height?: number;
   id: string;
-  type: number;
 }
 
-const PieChart: React.FC<Props> = ({
-  data,
-  colorSet,
-  width,
-  height,
-  setSelectedKey,
-  id,
-  type,
-}) => {
+const PieChart: React.FC<Props> = ({ data, colorSet, width, height, id }) => {
   const [tooltipData, setTooltipData] = useState<{
     key: string;
     value: number;
@@ -54,9 +38,9 @@ const PieChart: React.FC<Props> = ({
   }, [colorList, data]);
 
   const drawChart = useCallback(() => {
-    const pieWidth = (width * 5) / 6;
+    const pieWidth = (width! * 5) / 6;
     // 차트 그리기 ////////////////////////////////////////////////////////////////////
-    const radius = Math.min(pieWidth, height) / 2;
+    const radius = Math.min(pieWidth, height!) / 2;
     const arcValue = arc()
       .innerRadius(radius * 0.5)
       .outerRadius(radius * 0.85)
@@ -74,7 +58,7 @@ const PieChart: React.FC<Props> = ({
       .selectAll('path')
       .data(chartData)
       .join('path')
-      .attr('transform', `translate(${pieWidth / 2}, ${height / 2})`)
+      .attr('transform', `translate(${pieWidth / 2}, ${height! / 2})`)
       .attr('fill', (d: any) => {
         if (d.data.key == '기타') {
           return '#e3e3e3';
@@ -88,7 +72,7 @@ const PieChart: React.FC<Props> = ({
           .transition()
           .attr(
             'transform',
-            `translate(${pieWidth / 2}, ${height / 2}) scale(1.05)`,
+            `translate(${pieWidth / 2}, ${height! / 2}) scale(1.05)`,
           )
           .attr('filter', 'drop-shadow(1px 1px 4px rgba(0,0,0,0.4))');
         setTooltipData({ key: d.data.key, value: d.data.percent });
@@ -98,21 +82,16 @@ const PieChart: React.FC<Props> = ({
           .transition()
           .attr(
             'transform',
-            `translate(${pieWidth / 2}, ${height / 2}) scale(1)`,
+            `translate(${pieWidth / 2}, ${height! / 2}) scale(1)`,
           )
           .attr('filter', '');
         setTooltipData(undefined);
-      })
-      .on('click', (_, d: any) => {
-        if (setSelectedKey && type == 2) {
-          setSelectedKey(d.data.key);
-        }
       });
     //   @ts-ignore
     select(`#${id}-pie-chart`).selectAll('path').attr('d', arcValue);
     /////
     return <g id={`${id}-pie-chart`}></g>;
-  }, [color, data, height, id, setSelectedKey, type, width]);
+  }, [color, data, height, id, width]);
 
   const drawLegend = useCallback(() => {
     return color.domain().map((d: any, i: number) => {
@@ -140,7 +119,7 @@ const PieChart: React.FC<Props> = ({
   return (
     <div className="flex items-center w-full h-full">
       <div className="relative flex w-5/6">
-        <svg width={(width * 5) / 6} height={height}>
+        <svg width={(width! * 5) / 6} height={height}>
           {drawChart()}
         </svg>
         {tooltipData && (

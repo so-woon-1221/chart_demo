@@ -32,6 +32,11 @@ import Scatter from '../components/chart/Scatter';
 import Head from 'next/head';
 import Mosaic from '../components/chart/Mosaic';
 
+import Map from '../components/chart/Map';
+import seoulTopo from '../public/서울시2.json';
+const Map2 = dynamic(() => import('../components/chart/Map2'), { ssr: false });
+import mapData from '../public/서울시.json';
+
 const nodes = [
   { x: 50, y: 20 },
   { x: 200, y: 250 },
@@ -128,7 +133,7 @@ const Home: NextPage = () => {
             ]}
             id={'horizon-bar'}
             colorSet={['#333']}
-            xType={'band'}
+
             // barType={'stack'}
           />
         </div>
@@ -234,11 +239,11 @@ const Home: NextPage = () => {
           <span className={'text-sm'}>버블차트</span>
           <Bubble
             data={[
-              { key: '1', percent: 10 },
-              { key: '2', percent: 20 },
-              { key: '3', percent: 30 },
-              { key: '4', percent: 25 },
-              { key: '5', percent: 10 },
+              { key: '1', percent: 10, data: 10 },
+              { key: '2', percent: 20, data: 20 },
+              { key: '3', percent: 30, data: 30 },
+              { key: '4', percent: 25, data: 25 },
+              { key: '5', percent: 10, data: 10 },
             ]}
             id={'bubble'}
             colorList={['#333', '#777']}
@@ -248,11 +253,11 @@ const Home: NextPage = () => {
           <span className={'text-sm'}>파이차트</span>
           <PieChart
             data={[
-              { key: '1', percent: 10 },
-              { key: '2', percent: 20 },
-              { key: '3', percent: 30 },
-              { key: '4', percent: 25 },
-              { key: '5', percent: 10 },
+              { key: '1', percent: 10, data: 10 },
+              { key: '2', percent: 20, data: 20 },
+              { key: '3', percent: 30, data: 30 },
+              { key: '4', percent: 25, data: 25 },
+              { key: '5', percent: 10, data: 10 },
             ]}
             id={'pie'}
             colorSet={['#333333', '#ffffff']}
@@ -304,7 +309,7 @@ const Home: NextPage = () => {
                 x: 'x',
                 qt1: 10,
                 qt3: 30,
-                media: 12,
+                median: 12,
                 avg: 12,
                 min: 5,
                 max: 40,
@@ -314,7 +319,7 @@ const Home: NextPage = () => {
                 x: 'y',
                 qt1: 20,
                 qt3: 30,
-                media: 12,
+                median: 12,
                 avg: 17,
                 min: 15,
                 max: 70,
@@ -324,7 +329,7 @@ const Home: NextPage = () => {
                 x: 'z',
                 qt1: 13,
                 qt3: 30,
-                media: 12,
+                median: 12,
                 avg: 16,
                 min: 12,
                 max: 50,
@@ -334,7 +339,7 @@ const Home: NextPage = () => {
                 x: 'a',
                 qt1: 10,
                 qt3: 30,
-                media: 12,
+                median: 12,
                 avg: 12,
                 min: 5,
                 max: 40,
@@ -417,6 +422,14 @@ const Home: NextPage = () => {
             colorList={['#000', '#333', '#aaa', '#eee']}
             // xType={'band'}
           />
+        </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>지도1</span>
+          <Map data={seoulTopo} id={'map'} />
+        </div>
+        <div className={'flex flex-col gap-y-2'}>
+          <span className={'text-sm'}>지도2</span>
+          <Map2 data={mapData} id={'map2'} />
         </div>
       </div>
       <Head>

@@ -460,6 +460,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-leaflet/core@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@react-leaflet/core@npm:2.1.0"
+  peerDependencies:
+    leaflet: ^1.9.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: c11a15fb71a9929b809f346d8f784d0f32afa373bc096aa1f0d0fa6a2ef0ce632a563c31876abf8b255a12a19d6e80ece31e2ef505f79a678bbf073e7a6c5c60
+  languageName: node
+  linkType: hard
+
 "@react-spring/animated@npm:^9.5.5, @react-spring/animated@npm:~9.5.5":
   version: 9.5.5
   resolution: "@react-spring/animated@npm:9.5.5"
@@ -988,6 +999,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/leaflet@npm:^1":
+  version: 1.9.0
+  resolution: "@types/leaflet@npm:1.9.0"
+  dependencies:
+    "@types/geojson": "*"
+  checksum: f3ee2e2fc8bd3480d77667471c8f774a3726ff7694a7d08d2423c05b40e28f00379c7d469b4cbd3b53a1bc96c75970c92f9da7908fc477cbac0eda2a9d17b6ad
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.172":
   version: 4.14.186
   resolution: "@types/lodash@npm:4.14.186"
@@ -1053,6 +1073,25 @@ __metadata:
     "@types/react": "*"
     csstype: ^3.0.2
   checksum: 84f53b3101739b20d1731554fb7735bc2f3f5d050a8b392e9845403c8c8bbd729737d033978649f9195a97b557875b010d46e35a4538564a2d0dbcce661dbf76
+  languageName: node
+  linkType: hard
+
+"@types/topojson-client@npm:^3":
+  version: 3.1.1
+  resolution: "@types/topojson-client@npm:3.1.1"
+  dependencies:
+    "@types/geojson": "*"
+    "@types/topojson-specification": "*"
+  checksum: 09f101803b2ba86a10929eb7467e56f7185a5b3f2964e48a81905c8b19de922b75ffcf37ea1b362b5f5971b1659b5da6d6a0f10caa8419c642807ca7612cab6b
+  languageName: node
+  linkType: hard
+
+"@types/topojson-specification@npm:*":
+  version: 1.0.2
+  resolution: "@types/topojson-specification@npm:1.0.2"
+  dependencies:
+    "@types/geojson": "*"
+  checksum: ad1a759cc9cb76d388140eaac160794d0ea33f8b4ba5b75bad4a48b6b0a28c72e031fca78d564871759eb6a8b4173a5e19baedb79f2c5b5eaa18c9b808248a89
   languageName: node
   linkType: hard
 
@@ -2109,11 +2148,13 @@ __metadata:
     "@react-spring/web": ^9.5.5
     "@types/d3": 6
     "@types/javascript-color-gradient": ^2.4.0
+    "@types/leaflet": ^1
     "@types/moment": ^2.13.0
     "@types/node": 18.8.3
     "@types/react": 18.0.21
     "@types/react-dom": 18.0.6
     "@types/styled-components": ^5.1.26
+    "@types/topojson-client": ^3
     "@visx/stats": ^2.10.0
     "@visx/visx": ^2.15.0
     autoprefixer: ^10.4.12
@@ -2121,6 +2162,7 @@ __metadata:
     eslint: 8.24.0
     eslint-config-next: 12.3.1
     javascript-color-gradient: ^2.4.4
+    leaflet: ^1.9.2
     moment: ^2.29.4
     next: 12.3.1
     postcss: ^8.4.17
@@ -2128,10 +2170,12 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-icons: ^4.4.0
+    react-leaflet: ^4.1.0
     react-spring: ^9.5.5
     styled-components: ^5.3.6
     tailwind-styled-components: ^2.2.0
     tailwindcss: ^3.1.8
+    topojson-client: ^3.1.0
     typescript: 4.8.4
   languageName: unknown
   linkType: soft
@@ -3973,6 +4017,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"leaflet@npm:^1.9.2":
+  version: 1.9.2
+  resolution: "leaflet@npm:1.9.2"
+  checksum: ab6edb278c6bbd05db9a9395694fc517557433bedbcb233941ea42327ee90650f2d61dd3f9caf861040c8b25abfd8e1f79018f6ae899181e280287c7481ba4bf
+  languageName: node
+  linkType: hard
+
 "levn@npm:^0.4.1":
   version: 0.4.1
   resolution: "levn@npm:0.4.1"
@@ -4766,6 +4817,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-leaflet@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "react-leaflet@npm:4.1.0"
+  dependencies:
+    "@react-leaflet/core": ^2.1.0
+  peerDependencies:
+    leaflet: ^1.9.0
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  checksum: e49b00b5b0364fa6e187e5a47e4b334043fe5886a22ecb6f57458264775e61986ab9272771fc24011484d859628363f1f4e53cf994ab5ec1c98dcb7a957333cd
+  languageName: node
+  linkType: hard
+
 "react-spring@npm:^9.5.5":
   version: 9.5.5
   resolution: "react-spring@npm:9.5.5"
@@ -5361,6 +5425,19 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
+  languageName: node
+  linkType: hard
+
+"topojson-client@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "topojson-client@npm:3.1.0"
+  dependencies:
+    commander: 2
+  bin:
+    topo2geo: bin/topo2geo
+    topomerge: bin/topomerge
+    topoquantize: bin/topoquantize
+  checksum: 8c029a4f18324ace0b8b55dd90edbd40c9e3c6de18bafbb5da37ca20ebf20e26fbd4420891acb3c2c264e214185f7557871f5651a9eee517028663be98d836de
   languageName: node
   linkType: hard
 

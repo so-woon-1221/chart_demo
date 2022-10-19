@@ -1,24 +1,31 @@
 import { ParentSize } from '@visx/responsive';
-import React from 'react';
+import { ComponentType } from 'react';
 
-interface ChartProps {
+interface Props {
   data: any;
   id: string;
-  height?: number | string;
+  height?: number;
   [key: string]: any;
 }
 
-const withParentSize = <P extends ChartProps>(
-  ChartComponent: React.ComponentType<P>,
-): React.FC<ChartProps> => {
-  const Component = (props: ChartProps) => {
+const withParentSize = <P extends Props>(
+  ChartComponent: ComponentType<P>,
+): ComponentType<P> => {
+  const Component = (props: Props) => {
     return (
       <div
-        className={`shadow-lg w-full bg-[#fafafa] rounded h-[450px] lg:h-full lg:max-h-[700px] lg:min-h-[450px]`}
+        className={`shadow-lg w-full bg-[#fafafa] rounded relative ${
+          props.height
+            ? ''
+            : 'h-[450px] lg:h-full lg:max-h-[700px] lg:min-h-[450px]'
+        }`}
+        style={{ height: props.height ? `${props.height}px` : `` }}
       >
         <ParentSize>
           {({ width, height }) => {
-            const combinedProps = { ...props, width, height };
+            const combinedProps = props.height
+              ? { ...props, width }
+              : { ...props, width, height };
             return <ChartComponent {...(combinedProps as unknown as P)} />;
           }}
         </ParentSize>
@@ -26,7 +33,7 @@ const withParentSize = <P extends ChartProps>(
     );
   };
 
-  return React.memo(Component);
+  return Component;
 };
 
 export default withParentSize;

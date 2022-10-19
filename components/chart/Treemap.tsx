@@ -14,12 +14,11 @@ import withParentSize from 'hooks/withParentSize';
 // import { filterStateAtom } from 'atom/filterStateAtom';
 
 interface Props {
-  data: Array<{ id: string; parent: string | null; size: number }>;
-  width: number;
-  height: number;
+  data: Array<{ id: string; parent: string | null; size: number | null }>;
+  width?: number;
+  height?: number;
   id: string;
-  setSelectedKey?: Dispatch<SetStateAction<string>>;
-  colorSet?: string[];
+  colorSet: string[];
 }
 
 const Treemap: React.FC<Props> = ({
@@ -27,16 +26,15 @@ const Treemap: React.FC<Props> = ({
   id,
   width,
   height,
-  setSelectedKey,
   colorSet = ['#ef4444', '#0891b2'],
 }) => {
   const [isTransitionEnd, setIsTransitionEnd] = useState(false);
-  // const filterState = useRecoilValue(filterStateAtom);
+
   const colorScale = useMemo(
     () =>
       scaleLog({
         domain: extent(
-          data.filter((d) => d.parent !== null).map((d) => d.size),
+          data.filter((d) => d.parent !== null).map((d) => d.size!),
         ) as ContinuousInput[],
         range: colorSet,
       }),
@@ -70,11 +68,11 @@ const Treemap: React.FC<Props> = ({
 
     const root = stratify()
       .id((d: any) => d.id)
-      .parentId((d: any) => d.parent)(data.sort((a, b) => b.size - a.size));
+      .parentId((d: any) => d.parent)(data.sort((a, b) => b.size! - a.size!));
     root.sum((d: any) => d.size || 0);
 
     treemap()
-      .size([width - 50, height - 50])
+      .size([width! - 50, height! - 50])
       .padding(0)(root);
 
     chartArea
@@ -117,11 +115,6 @@ const Treemap: React.FC<Props> = ({
       )
       .on('mouseleave', () => {
         setTooltipData(undefined);
-      })
-      .on('click', (e, d) => {
-        if (setSelectedKey && d.id) {
-          setSelectedKey(d.id);
-        }
       })
       .attr('x', function (d: any) {
         return d.x0;
@@ -174,7 +167,7 @@ const Treemap: React.FC<Props> = ({
         <g id={`${id}-text`} />
       </>
     );
-  }, [colorScale, data, height, id, isTransitionEnd, setSelectedKey, width]);
+  }, [colorScale, data, height, id, isTransitionEnd, width]);
 
   return (
     <div className="relative w-full h-full">

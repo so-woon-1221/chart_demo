@@ -6,23 +6,23 @@ import {
   AnnotationLabel,
   AnimatedAnnotation,
 } from '@visx/xychart';
-import { useMemo } from 'react';
+import { ComponentType, useMemo } from 'react';
 import { LinearGradient } from '@visx/gradient';
 
 interface Props {
   // x축은 x로 고정, index와 x가 아닌키는 모두 라인을 그릴 수 있도록 설정
-  data: { index: number; x: string; [key: string]: string | number }[];
+  data: { x: string; [key: string]: string | number }[];
   id: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   // xType: "time" | "band" | "point" | "ordinal";
-  barType: string;
+  barType?: string;
   colorSet: string[];
   // showLegend?: boolean;
   limit?: number;
 }
 
-const HorizontalBarChart: React.FC<Props> = ({
+const HorizontalBarChart: ComponentType<Props> = ({
   data,
   id,
   width,
@@ -43,18 +43,18 @@ const HorizontalBarChart: React.FC<Props> = ({
           !!limit
             ? {
                 type: 'linear',
-                range: [100, width - 80],
+                range: [100, width! - 80],
                 domain: [0, limit],
               }
             : {
                 type: 'linear',
-                range: [100, width - 80],
+                range: [100, width! - 80],
               }
         }
         yScale={{
           type: 'band',
           domain: data.map((d) => d.x),
-          range: [height - 50, 50],
+          range: [height! - 50, 50],
           padding: 0.2,
         }}
         width={width}

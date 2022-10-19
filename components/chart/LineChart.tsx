@@ -23,16 +23,17 @@ import { GridRows } from '@visx/grid';
 import { GlyphCircle } from '@visx/glyph';
 import { TooltipWithBounds } from '@visx/tooltip';
 import { useCallback } from 'react';
+import { ScaleType } from '@visx/scale';
 
 interface Props {
   // x축은 x로 고정, index와 x가 아닌키는 모두 라인을 그릴 수 있도록 설정
-  data: { index: number; x: string; [key: string]: string | number }[];
+  data: { x: string; [key: string]: string | number }[];
   id: string;
-  width: number;
-  height: number;
-  xType: any;
-  barType: string;
-  setClickState: Dispatch<SetStateAction<string>>;
+  width?: number;
+  height?: number;
+  xType?: ScaleType;
+  barType?: string;
+  setClickState?: Dispatch<SetStateAction<string>>;
   colorList: string[];
   keyArray?: string[];
   limit?: number;
@@ -46,7 +47,7 @@ const LineChart: React.FC<Props> = ({
   id,
   width,
   height,
-  xType,
+  xType = 'band',
   barType = 'normal',
   setClickState,
   colorList = ['#354965'],
@@ -108,16 +109,16 @@ const LineChart: React.FC<Props> = ({
             moment(min(data.map((d) => d.x)), 'YYYYMMDD').toDate(),
             moment(max(data.map((d) => d.x)), 'YYYYMMDD').toDate(),
           ])
-          .range([80, width - 50])
+          .range([80, width! - 50])
       : scaleBand()
           .domain(data.map((d) => d.x))
-          .range([80, width - 50]);
+          .range([80, width! - 50]);
   }, [data, width, xType]);
 
   const yScale = useMemo(() => {
     return scaleLinear()
       .domain([0, maxY])
-      .range([height - 50, 50]);
+      .range([height! - 50, 50]);
   }, [height, maxY]);
 
   const [tooltipData, setTooltipData] = useState<any>();
@@ -185,6 +186,7 @@ const LineChart: React.FC<Props> = ({
         width={width}
         height={height}
         xScale={{
+          //@ts-ignore
           type: xType,
           domain:
             xType == 'time'
@@ -193,12 +195,12 @@ const LineChart: React.FC<Props> = ({
                   moment(max(data.map((d) => d.x)), 'YYYYMMDD').toDate(),
                 ]
               : data.map((d) => d.x),
-          range: [80, width - 50],
+          range: [80, width! - 50],
         }}
         yScale={{
           type: 'linear',
           domain: [0, maxY],
-          range: [height - 50, 50],
+          range: [height! - 50, 50],
           nice: true,
         }}
         onPointerUp={(e) => {
@@ -227,7 +229,7 @@ const LineChart: React.FC<Props> = ({
           }
         }}
       >
-        <GridRows width={width - 130} left={80} scale={yScale} numTicks={3} />
+        <GridRows width={width! - 130} left={80} scale={yScale} numTicks={3} />
         <Axis
           orientation="bottom"
           tickFormat={(d) => {
@@ -396,7 +398,7 @@ const LineChart: React.FC<Props> = ({
               }
               y={50}
               width={1}
-              height={height - 100}
+              height={height! - 100}
               fill={'#666'}
             />
           </>
@@ -410,7 +412,7 @@ const LineChart: React.FC<Props> = ({
               x1={xRectX ?? 0}
               x2={xRectX ?? 0}
               y1={50}
-              y2={height - 50}
+              y2={height! - 50}
               strokeWidth={1}
               stroke={'#666'}
               strokeDasharray={'5'}
@@ -424,7 +426,7 @@ const LineChart: React.FC<Props> = ({
             </text>
             <line
               x1={80}
-              x2={width - 50}
+              x2={width! - 50}
               y1={yScale(yRect.pos)}
               y2={yScale(yRect.pos)}
               strokeWidth={1}

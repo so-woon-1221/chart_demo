@@ -18,8 +18,8 @@ import {
 
 interface Props {
   data: Array<{ x: string; y: string; value: number }>;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   id: string;
   colorList: string[];
 }
@@ -74,7 +74,7 @@ const Mosaic: ComponentType<Props> = ({
   const drawChart = useCallback(
     (svg: RefObject<SVGSVGElement>) => {
       if (svg.current) {
-        const root = treeGenerator(data, width, height);
+        const root = treeGenerator(data, width!, height!);
 
         const container = select(svg.current);
 

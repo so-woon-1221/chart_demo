@@ -20,8 +20,8 @@ import {
 interface Props {
   data: { key: string; data: { x: string | number; y: number }[] }[];
   id: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   colorList: string[];
 }
 
@@ -50,14 +50,14 @@ const RadarChart: ComponentType<Props> = ({
 
   const angleSlice = useMemo(() => (Math.PI * 2) / data[0].data.length, [data]);
 
-  const radius = useMemo(() => height / 2 - margin, [height]);
+  const radius = useMemo(() => height! / 2 - margin, [height]);
 
   const maxY = useMemo(() => max(data, (d) => max(d.data, (a) => a.y)), [data]);
 
   const rScale = useMemo(() => {
     return scaleLinear()
       .domain([0, maxY!])
-      .range([0, Math.min(height, width) / 2 - margin]);
+      .range([0, Math.min(height!, width!) / 2 - margin]);
   }, [height, maxY, width]);
 
   const radarLine = useMemo(() => {
@@ -73,7 +73,7 @@ const RadarChart: ComponentType<Props> = ({
       if (svg) {
         const container = svg
           .select('g')
-          .attr('transform', `translate(${width / 2}, ${height / 2})`);
+          .attr('transform', `translate(${width! / 2}, ${height! / 2})`);
 
         container
           .selectAll('circle')
@@ -155,7 +155,18 @@ const RadarChart: ComponentType<Props> = ({
           );
       }
     },
-    [angleSlice, color, data, height, rScale, radarLine, width],
+    [
+      angleSlice,
+      axisList,
+      color,
+      data,
+      height,
+      maxY,
+      rScale,
+      radarLine,
+      radius,
+      width,
+    ],
   );
 
   useEffect(() => {

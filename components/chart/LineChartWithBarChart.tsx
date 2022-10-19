@@ -8,22 +8,18 @@ import {
   select,
   pointer,
   ScaleBand,
-  scaleOrdinal,
 } from 'd3';
 import {
+  ComponentType,
   MouseEvent,
   TouchEvent,
   useCallback,
-  useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 import { Axis } from '@visx/axis';
 import { TooltipWithBounds } from '@visx/tooltip';
 import { GlyphCircle } from '@visx/glyph';
-// import { useRecoilValue } from 'recoil';
-// import { filterStateAtom } from 'atom/filterStateAtom';
 import { RiBarChartFill } from 'react-icons/ri';
 import { MdOutlineStackedLineChart } from 'react-icons/md';
 
@@ -31,23 +27,21 @@ interface Props {
   data: {
     lineData: {
       x: string;
-      index: number;
       y: number;
     }[];
     barData: {
       x: string;
-      index: number;
       y: number;
     }[];
   };
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   id: string;
   keyList: string[];
   colorList: string[];
 }
 
-const LineChartWithBarChart: React.FC<Props> = ({
+const LineChartWithBarChart: ComponentType<Props> = ({
   data,
   width,
   height,
@@ -74,23 +68,23 @@ const LineChartWithBarChart: React.FC<Props> = ({
       //   min(barData.map((d) => moment(d.x, "YYYYMMDD").toDate()))!,
       //   max(barData.map((d) => moment(d.x, "YYYYMMDD").toDate()))!,
       // ])
-      .range([80, width - 80])
+      .range([80, width! - 80])
       .padding(0.4);
 
   const lineYScale = scaleLinear()
-    .domain([0, max(lineData, (d) => +d.y) ?? 0 * 1.1])
+    .domain([0, (max(lineData, (d) => +d.y) ?? 0) * 1.1])
     .range(
       max(lineData, (d) => +d.y) == 0
-        ? [height - 50, height - 50]
-        : [height - 50, 50],
+        ? [height! - 50, height! - 50]
+        : [height! - 50, 50],
     );
 
   const barYScale = scaleLinear()
-    .domain([0, max(barData, (d) => +d.y) ?? 0 * 1.1])
+    .domain([0, (max(barData, (d) => +d.y) ?? 0) * 1.1])
     .range(
       max(barData, (d) => +d.y) == 0
-        ? [height - 50, height - 50]
-        : [height - 50, 50],
+        ? [height! - 50, height! - 50]
+        : [height! - 50, 50],
     );
 
   // const color = useMemo(() => {
@@ -144,7 +138,7 @@ const LineChartWithBarChart: React.FC<Props> = ({
           enter
             .append('rect')
             .attr('x', (d) => xScale(d.x)!)
-            .attr('y', height - 50)
+            .attr('y', height! - 50)
             .attr('width', xScale.bandwidth())
             .attr('height', 0),
         )
@@ -159,7 +153,7 @@ const LineChartWithBarChart: React.FC<Props> = ({
         .attr('y', (d) => barYScale(d.y))
         .attr('width', xScale.bandwidth())
         // .attr("width", 20)
-        .attr('height', (d) => height - 50 - barYScale(d.y));
+        .attr('height', (d) => height! - 50 - barYScale(d.y));
       return <g id={`${id}-bar`} />;
     }
   }, [barData, barYScale, height, id, xScale]);
@@ -259,10 +253,10 @@ const LineChartWithBarChart: React.FC<Props> = ({
           setTooltipData(undefined);
         }}
       >
-        <GridRows scale={barYScale} width={width - 160} left={80} />
-        <Axis scale={xScale} top={height - 50} />
+        <GridRows scale={barYScale} width={width! - 160} left={80} />
+        <Axis scale={xScale} top={height! - 50} />
         <Axis scale={barYScale} left={80} orientation="left" />
-        <Axis scale={lineYScale} orientation="right" left={width - 80} />
+        <Axis scale={lineYScale} orientation="right" left={width! - 80} />
         {drawBarChart()}
         {drawLineChart()}
         {tooltipData && (

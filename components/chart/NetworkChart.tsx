@@ -23,8 +23,8 @@ interface Props {
     links: { source: string; target: string; value: number }[];
   };
   id: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }
 
 const NetworkChart: React.FC<Props> = ({ id, data, width, height }) => {
@@ -86,10 +86,10 @@ const NetworkChart: React.FC<Props> = ({ id, data, width, height }) => {
           .id((d: any) => d.id)
           .distance(250),
       )
-      .force('center', forceCenter(width / 2, height / 2))
+      .force('center', forceCenter(width! / 2, height! / 2))
       .force('charge', forceManyBody().strength(-300))
-      .force('x', forceX(width))
-      .force('y', forceY(height));
+      .force('x', forceX(width!))
+      .force('y', forceY(height!));
 
     const nodeLinkStatus = Object.assign({});
     data.links.forEach((d: any) => {
@@ -213,7 +213,7 @@ const NetworkChart: React.FC<Props> = ({ id, data, width, height }) => {
         .scaleExtent([0.5, 20])
         .extent([
           [0, 0],
-          [width, height],
+          [width!, height!],
         ])
         .on('zoom', (e) => {
           svg.selectAll('g').attr('transform', e.transform);

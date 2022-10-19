@@ -1,11 +1,5 @@
 import withParentSize from 'hooks/withParentSize';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useMemo,
-  useState,
-} from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Group } from '@visx/group';
 import { Pack, hierarchy } from '@visx/hierarchy';
 import { max, scaleLinear, format, select, HierarchyCircularNode } from 'd3';
@@ -13,11 +7,9 @@ import { TooltipWithBounds as Tooltip } from '@visx/tooltip';
 
 interface Props {
   data: Array<{ key: string; data: number; percent: number }>;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   id: string;
-  // isTransitionEnd: boolean;
-  // setIsTransitionEnd: Dispatch<SetStateAction<boolean>>;
   colorList?: string[];
 }
 
@@ -60,7 +52,7 @@ const Bubble: React.FC<Props> = ({
 
   const scaleCircle = scaleLinear()
     .domain([0, max(data.map((d) => +d.percent))!])
-    .range([0, width / 10]);
+    .range([0, width! / 10]);
 
   const drawChart = useCallback(
     (circle: any[]) => {
@@ -163,7 +155,7 @@ const Bubble: React.FC<Props> = ({
         {root && (
           <Pack<any>
             root={root}
-            size={[width - 100, height - 100]}
+            size={[width! - 100, height! - 100]}
             radius={(d) => {
               return scaleCircle(d.data.percent);
             }}
