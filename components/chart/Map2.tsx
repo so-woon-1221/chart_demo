@@ -37,9 +37,10 @@ const Map2: ComponentType<Props> = ({ data, id, width, height }) => {
   //   }
   // }, [mapState, geoJson, data]);
 
-  const projectPoint = function (x, y) {
+  const projectPoint = function (x: number, y: number) {
     if (mapState) {
       const point = mapState.latLngToLayerPoint(new L.LatLng(y, x));
+      //@ts-ignore
       this.stream.point(point.x, point.y);
     }
   };
@@ -55,7 +56,7 @@ const Map2: ComponentType<Props> = ({ data, id, width, height }) => {
     if (mapState) {
       if (!select(`#${id}-svg`).empty()) {
         // window.alert('yes');
-        return select(`#${id}-svg`);
+        return select(`#${id}-svg`) as any;
       } else {
         // window.alert('no');
         return select(mapState.getPanes().overlayPane)
